@@ -1,0 +1,39 @@
+---
+- hosts: ws
+  become: true
+  gather_facts: true
+  ignore_errors: true
+  vars:
+    user_name: manu2026
+    group: terraform
+  vars_files:
+    - variables.yml
+
+  tasks:
+    - name: check server uptime
+      command: "{{my_command}}"
+      register: uptime_output
+
+    - name: list directory
+      shell: ls
+
+    - name: check the kernel version
+      command: uname -r
+      register: kernel_output
+
+    - name: create user
+      user:
+        name: "{{user_name}}"
+        state: present
+
+    - name: create group
+      group:
+        name: "{{group}}"
+        state: present
+
+    - name: read data
+      debug:
+        #msg: "hello from my playbook"
+        #var: user_name
+        #var: kernel_output.stdout
+        var: uptime_output.stdout[:19]

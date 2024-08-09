@@ -1,0 +1,79 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: Install apache on Debien family
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+      tags:
+        - apt_get
+      when: ansible_distribution == "Ubuntu" or ansible_os_family == "Debian"
+
+    - name: Install apache on RedHat family
+      yum:
+        name: httpd
+        state: present
+        update_cache: yes
+      when: ansible_distribution == "Amazon" or ansible_os_family == "RedHat"
+
+    - name: Create a user
+      user:
+        name: Serge
+        comment: Serge Smith
+        shell: /bin/bash
+    
+    - name: Create a group
+      group:
+        name: cloudteam
+        state: present
+    
+    - name: Create a file
+      file:
+        path: /var/www/html/index.html
+        state: touch
+      register: file_output
+      tags:
+        - create_file
+
+    - name: Create a directory
+      file:
+        path: /tmp/os
+        state: directory
+
+    - name: Copy content to index
+      copy:
+        dest: file_output.diff.before.path
+        content: '<h1> This website is created using Ansible</h1>'
+    
+    - name: Start service httpd, if not started
+      service:
+        name: httpd
+        state: started
+      when: ansible_distribution == "Amazon" or ansible_os_family == "RedHat"
+
+    - name: Start service httpd, if not started
+      service:
+        name: apache2
+        state: started
+      when: ansible_distribution == "Ubuntu" or ansible_os_family == "Debian"
+
+    - name: Enable service httpd, and not touch the state on RedHat family
+      service:
+        name: httpd
+        enabled: yes
+      when: ansible_distribution == "Amazon" or ansible_os_family == "RedHat"
+
+    - name: Enable service httpd, and not touch the state on Debian family
+      service:
+        name: apache2
+        enabled: yes
+      when: ansible_distribution == "Ubuntu" or ansible_os_family == "Debian"
+
+
+
+
+        

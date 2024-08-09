@@ -1,0 +1,11 @@
+---
+- hosts: ws
+  become: true
+  gather_facts: true
+  ignore_errors: true
+
+  tasks:
+    - name: Package install
+      yum:
+        name: ["wget", "curl"]
+        state: present

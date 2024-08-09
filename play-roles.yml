@@ -1,0 +1,19 @@
+---
+- hosts: ws
+  become: true
+
+  tasks:
+    - name: create a directory
+      file:
+        path: /home/ec2-user/ansible-dev2/Manu
+        state: directory
+
+    - name: download a file online
+      get_url:
+        dest: /home/ec2-user/ansible-dev2/Manu
+        url: https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.10.3.tar.xz
+
+    - name: Update all packages
+      yum:
+        name: '*'
+        update_cache: true

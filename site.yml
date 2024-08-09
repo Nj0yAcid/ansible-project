@@ -1,0 +1,7 @@
+---
+- hosts: ws
+  
+  roles: 
+    - role: link
+      dest_path: /home/ec2-user/Manu
+      my_url: https://download.virtualbox.org/virtualbox/7.0.20/VirtualBox-7.0.20-163906-Win.exe
