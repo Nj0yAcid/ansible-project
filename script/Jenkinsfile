@@ -2,12 +2,12 @@ pipeline{
     agent any
 
     stages{
-        stage("install zip"){
-            steps{
-                sh 'sudo yum update -y'
-                sh 'sudo yum install zip'
-            }
-        }
+        //stage("install zip"){
+            //steps{
+                //sh 'sudo yum update -y'
+                //sh 'sudo yum install zip'
+            //}
+        //}
 
         stage("Create a zip file"){
             steps{
