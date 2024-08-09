@@ -11,7 +11,7 @@ pipeline{
 
         stage("Create a zip file"){
             steps{
-                sh 'zip ansible-dev.zip ansible-dev4'
+                sh 'zip ansible-dev${BUILD_ID}.zip * exclude Jenkinsfile'
             }
         }
     }
