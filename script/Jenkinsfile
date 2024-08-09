@@ -1,0 +1,14 @@
+pipeline{
+    agent any
+
+    stages {
+        stage("install zip")
+            steps{
+                sh 'sudo yum update -y'
+                sh 'sudo yum install zip'
+            }
+
+        stage("Create a zip file")
+        sh 'zip ansible-dev.zip /home/ec2-user/18-ansible-ex/ansible-dev4'
+    }
+}
