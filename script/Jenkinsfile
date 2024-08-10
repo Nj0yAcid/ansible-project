@@ -5,8 +5,9 @@ pipeline{
 
         stage("Create a zip file"){
             steps{
+                sh 'rm -rf *.zip || echo ""'
                 sh 'zip ansible-dev${BUILD_ID}.zip * --exclude /script/Jenkinsfile'
-                sh 'ls -l script'
+                
             }
         }
 
