@@ -1,2 +1,3 @@
 ansible.log
 .gitignore
+inv.yml
