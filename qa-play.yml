@@ -23,10 +23,9 @@
       file:
         path: /opt/qa/spg/spg.log
         state: touch
-        mode: '0755'
       
     - name: start and enable docker 
-      systemd_service:
+      systemd:
         name: docker
         state: started
         enabled: yes
