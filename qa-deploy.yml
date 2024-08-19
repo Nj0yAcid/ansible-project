@@ -15,7 +15,7 @@
     - name: Kill running app
       shell: "kill -9 {{ pid_output.stdout }}"
       when : pid_output.stdout != ''
-    
+
     - name: Download the new artifact
       get_url: 
         url: http://3.95.170.191:8081/artifactory/geolocation/geo/bio_8.jar
